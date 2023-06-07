@@ -1,4 +1,5 @@
-import boto3
+from invoke import task
 
+@task
 def download_data(cmd):
-    pass
+    cmd.run("python -m scripts.download_data")
