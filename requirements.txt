@@ -4,4 +4,4 @@ numpy
 sklearn
 invoke
 boto3
-zipfile
+matplotlib
