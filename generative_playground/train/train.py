@@ -77,10 +77,11 @@ def generator_loss(criticized_fake):
 
 
 def get_parser():
-    pass
+    parser = argparse.ArgumentParser(description="A script to train a generative adversarial network to generate human faces")
+    return parser
 
 def train(args):
-    metadata_frame = pd.read_csv("/Users/lukasadamek/Projects/GenerativePlayground/datasets/unzipped/metadata.csv")
+    metadata_frame = pd.read_csv(os.path.join(input_dir, "metadata.csv"))
     cleaned_frame = metadata_frame.query("(abs(shape_dim_zero - shape_dim_one)/shape_dim_one) < 0.15")
     cleaned_frame = cleaned_frame.query("(image_shape == 3) and (last_image_dimension == 3) and (shape_dim_zero >= 500) and (shape_dim_one >= 500)")
 
@@ -114,3 +115,8 @@ def train(args):
     )
 
     cond_gan.fit(full_generator, epochs=1)
+
+if __name__ == "__main__":
+    parser = get_parser()
+    args = parser.parse_args()
+    train(args)
